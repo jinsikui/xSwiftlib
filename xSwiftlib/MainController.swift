@@ -66,6 +66,7 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
     @objc dynamic var prop1: CGFloat = 300
     @objc dynamic var prop2: CGSize = CGSize.init(width: 100, height: 200)
     
+    
     lazy var totalHeight1: MutableProperty<CGFloat> = {
         let prop = MutableProperty<CGFloat>.init(0)
         prop <~ SignalProducer.combineLatest(self.reactive.producer(for: \.prop1), self.reactive.producer(for: \.prop2)).map({ (prop1, prop2) in
@@ -141,6 +142,9 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         self.addButton(text: "intrinsicContentSize", action: #selector(actionIntrinsicContentSize))
         self.addButton(text: "intrinsicTableViewCell", action: #selector(actionIntrinsicTableViewCell))
         self.addButton(text: "isAutoHeight", action: #selector(actionIsAutoHeight))
+        self.addButton(text: "PropertyWrapper", action: #selector(actionPropertyWrapper))
+        
+        
         self.scroll.contentSize = CGSize.init(width: 0, height: self.curY + 50)
     }
 
@@ -174,6 +178,32 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
     }
     
     //MARK: -
+    
+    @LazyOptional var expensiveObj: UIView = {
+        let view = UIView()
+        view.backgroundColor = .purple
+        print("expensiveObj is creating ...")
+        return view
+    }()
+    
+    @objc func actionPropertyWrapper() {
+        /**
+         first call this function:
+         self.$expensiveObj is nil?: true
+         self._expensiveObj.value is nil?: true
+         self._expensiveObj.value == self.$expensiveObj?: true
+         expensiveObj is creating ...
+         self.$expensiveObj is nil?: false
+         self._expensiveObj.value == self.$expensiveObj?: true
+         */
+        print("self.$expensiveObj is nil?: \(self.$expensiveObj == nil)") // true
+        print("self._expensiveObj.value is nil?: \(self._expensiveObj.value == nil)") // true
+        print("self._expensiveObj.value == self.$expensiveObj?: \(self._expensiveObj.value == self.$expensiveObj)") // nil == nil true
+        let _ = self.expensiveObj // expensiveObj is creating ...
+        print("self.$expensiveObj is nil?: \(self.$expensiveObj == nil)") // false
+        print("self._expensiveObj.value == self.$expensiveObj?: \(self._expensiveObj.value == self.$expensiveObj)") // true
+        
+    }
     
     @objc func actionIntrinsicTableViewCell() {
         self.navigationController?.pushViewController(IntrinsicTableViewCellController(), animated: true)
