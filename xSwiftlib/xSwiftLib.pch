@@ -1,0 +1,24 @@
+//
+//  xSwiftlib.pch
+//  xSwiftlib
+//
+//  Created by pwrd on 2023/4/28.
+//
+
+#ifndef xSwiftlib_pch
+#define xSwiftlib_pch
+
+#if __OBJC__
+
+#import <Foundation/Foundation.h>
+#import "Constants.h"
+#import "QBDefine.h"
+#import "QBUtilities.h"
+#import "UIColor+QBExtension.h"
+#import "WMTask.h"
+#import "UIFont+Theme.h"
+#import <YYKit/YYKit.h>
+
+#endif
+
+#endif /* xSwiftlib_pch */
