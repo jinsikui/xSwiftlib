@@ -98,7 +98,7 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "xSwiftlib test"
+        self.title = "xSwiftlib"
         self.view.backgroundColor = xColor.fromRGB(0xFFFFFF)
         scroll = UIScrollView()
         if #available(iOS 11.0, *) {
@@ -143,6 +143,7 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         self.addButton(text: "intrinsicTableViewCell", action: #selector(actionIntrinsicTableViewCell))
         self.addButton(text: "isAutoHeight", action: #selector(actionIsAutoHeight))
         self.addButton(text: "PropertyWrapper", action: #selector(actionPropertyWrapper))
+        self.addButton(text: "swift string", action: #selector(actionSwiftString))
         
         
         self.scroll.contentSize = CGSize.init(width: 0, height: self.curY + 50)
@@ -185,6 +186,47 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         print("expensiveObj is creating ...")
         return view
     }()
+    
+    @objc func actionSwiftString() {
+        let str = "From the beginning of the world"
+        // contains substring?
+        var find = str.contains("the") // true
+        print("\(find)")
+        // index of substring
+        var intIndex = -1
+        if let range = str.range(of: "the") {
+            intIndex = str.distance(from: str.startIndex, to: range.lowerBound) // 5, it's the first position of "the"
+            print("\(intIndex)")
+        }
+        // contains substring from index?
+        let range = str.range(of: "the", range: (str.index(str.startIndex, offsetBy: 6)..<str.endIndex))
+        find = range != nil // true, will find the second "the"
+        print("\(find)")
+        if let range {
+            intIndex = str.distance(from: str.startIndex, to: range.lowerBound) // 22, it's the second position of "the"
+            print("\(intIndex)")
+        }
+        // join strings together
+        let strArr = ["I", "love", "you"]
+        let joindStr = strArr.joined(separator: "  ") // two spaces -> "I  love  you"
+        // split string to strings
+        let newArr = joindStr.components(separatedBy: " ") // one space -> ["I", "", "love", "", "you"]
+        print("\(newArr)")
+        
+        // substring by range
+        var substr = str[str.startIndex..<str.index(str.startIndex, offsetBy: 4)] // From
+        substr = str.prefix(4) // From, same to above
+        print("\(substr)")
+        
+        // Character
+        let firstChar = str[str.startIndex] // 'F'
+        let firstChar2 = str.first // 'F'
+        let equal = firstChar == firstChar2 // true
+        print("\(equal)")
+        let isStr = firstChar is String // false
+        let isCharacter = firstChar is Character // true
+        print("isStr: \(isStr) isCharacter: \(isCharacter)")
+    }
     
     @objc func actionPropertyWrapper() {
         /**
