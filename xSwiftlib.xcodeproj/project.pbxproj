@@ -47,6 +47,7 @@
 		63C57B49287FC72400BA065A /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C57B48287FC72400BA065A /* AppFont.swift */; };
 		63C57B4C287FF24400BA065A /* UIFont+Theme.m in Sources */ = {isa = PBXBuildFile; fileRef = 63C57B4B287FF24400BA065A /* UIFont+Theme.m */; };
 		63E2035B2AE7D025002DB8C9 /* LazyOptional.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E2035A2AE7D025002DB8C9 /* LazyOptional.swift */; };
+		63E778A12AF2042400D6A7CC /* Algorithms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63E778A02AF2042400D6A7CC /* Algorithms.swift */; };
 		C383ED3936BAC0A7A57CB31D /* Pods_xSwiftlib.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD30FDE38D5FFEDF8988C13 /* Pods_xSwiftlib.framework */; };
 		D2DAD93D642B2380F22A0C5E /* Pods_xSwiftlibTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 954C08B51640713A50776468 /* Pods_xSwiftlibTests.framework */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,7 @@
 		63C57B4A287FF24400BA065A /* UIFont+Theme.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+Theme.h"; sourceTree = "<group>"; };
 		63C57B4B287FF24400BA065A /* UIFont+Theme.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+Theme.m"; sourceTree = "<group>"; };
 		63E2035A2AE7D025002DB8C9 /* LazyOptional.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LazyOptional.swift; sourceTree = "<group>"; };
+		63E778A02AF2042400D6A7CC /* Algorithms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithms.swift; sourceTree = "<group>"; };
 		6AD30FDE38D5FFEDF8988C13 /* Pods_xSwiftlib.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xSwiftlib.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76408F6854AFD12FD7DD4B9B /* Pods-xSwiftlib.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-xSwiftlib.release.xcconfig"; path = "Target Support Files/Pods-xSwiftlib/Pods-xSwiftlib.release.xcconfig"; sourceTree = "<group>"; };
 		954C08B51640713A50776468 /* Pods_xSwiftlibTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_xSwiftlibTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -263,6 +265,7 @@
 				089126372AD3914000AA7282 /* IntrinsicTableViewCellController.swift */,
 				089E1CEA2AC877F700D7B884 /* IntrinsicContentSizeController.swift */,
 				63E2035A2AE7D025002DB8C9 /* LazyOptional.swift */,
+				63E778A02AF2042400D6A7CC /* Algorithms.swift */,
 				63BFB46E27F9D38E00372284 /* Bridging-Header.h */,
 				63BFB43027F9C92000372284 /* Assets.xcassets */,
 				63BFB43227F9C92000372284 /* LaunchScreen.storyboard */,
@@ -611,6 +614,7 @@
 				63BFB46B27F9D34E00372284 /* SWError.swift in Sources */,
 				63C41CF128AE210C00BC32E2 /* AppError.swift in Sources */,
 				088EB77029FBBCA800E7A7B9 /* Constants.m in Sources */,
+				63E778A12AF2042400D6A7CC /* Algorithms.swift in Sources */,
 				63BFB46527F9D34E00372284 /* PromiseAsObservable.swift in Sources */,
 				63BFB42827F9C91F00372284 /* AppDelegate.swift in Sources */,
 				084257F829FF8FCD0065A4BA /* LearntWordSwift.swift in Sources */,

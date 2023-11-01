@@ -144,6 +144,7 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         self.addButton(text: "isAutoHeight", action: #selector(actionIsAutoHeight))
         self.addButton(text: "PropertyWrapper", action: #selector(actionPropertyWrapper))
         self.addButton(text: "swift string", action: #selector(actionSwiftString))
+        self.addButton(text: "算法题", action: #selector(actionAlgorithms))
         
         
         self.scroll.contentSize = CGSize.init(width: 0, height: self.curY + 50)
@@ -179,6 +180,12 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
     }
     
     //MARK: -
+    
+    @objc func actionAlgorithms() {
+        let ret = Algorithms.firstMissingPositive([3,4,-1,1])
+        print("\(ret)")
+    }
+    
     
     @LazyOptional var expensiveObj: UIView = {
         let view = UIView()
@@ -226,6 +233,7 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         let isStr = firstChar is String // false
         let isCharacter = firstChar is Character // true
         print("isStr: \(isStr) isCharacter: \(isCharacter)")
+        
     }
     
     @objc func actionPropertyWrapper() {
