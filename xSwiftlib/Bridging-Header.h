@@ -19,3 +19,5 @@
 
 #import "DatabaseManager.h"
 #import "WordBase.h"
+
+#import "EVCircularProgressView.h"

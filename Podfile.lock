@@ -14,6 +14,7 @@ PODS:
   - AFNetworking/Serialization (4.0.1)
   - AFNetworking/UIKit (4.0.1):
     - AFNetworking/NSURLSession
+  - CryptoSwift (1.5.1)
   - FMDB (2.7.5):
     - FMDB/standard (= 2.7.5)
   - FMDB/standard (2.7.5)
@@ -441,6 +442,7 @@ PODS:
   - YYKit/no-arc (1.0.9)
 
 DEPENDENCIES:
+  - CryptoSwift (= 1.5.1)
   - JXCategoryView (= 1.6.1)
   - PromisesObjC
   - PromisesSwift
@@ -464,6 +466,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AFNetworking
+    - CryptoSwift
     - FMDB
     - JXCategoryView
     - KVOController
@@ -523,6 +526,7 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   AFNetworking: 3bd23d814e976cd148d7d44c3ab78017b744cd58
+  CryptoSwift: c4f2debceb38bf44c80659afe009f71e23e4a082
   FMDB: 2ce00b547f966261cd18927a3ddb07cb6f3db82a
   JXCategoryView: 7b1ee69ede4843c581688afe84d0f047723262f2
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
@@ -551,6 +555,6 @@ SPEC CHECKSUMS:
   xUtil: 63d22b63b5ecf4433756db06769d2c654333026d
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 727fb64bc7457f6f439b8607d898038db5ccb4fe
+PODFILE CHECKSUM: f70ee07b481cb155911b151ad2c433a8c5028384
 
 COCOAPODS: 1.12.1

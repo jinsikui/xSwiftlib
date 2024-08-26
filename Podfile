@@ -40,6 +40,7 @@ def common
   pod 'YYKit'
   pod 'WCDB', '~> 1.1.0'
   pod 'WCDB.swift', '~> 1.1.0'
+  pod 'CryptoSwift', '1.5.1'
   
 end
 

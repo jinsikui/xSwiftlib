@@ -16,6 +16,8 @@ import Masonry
 import JXCategoryView
 import YYKit
 import WCDBSwift
+import CommonCrypto
+import CryptoSwift
 
 
 @objc enum TestEvent: Int {
@@ -145,6 +147,10 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         self.addButton(text: "PropertyWrapper", action: #selector(actionPropertyWrapper))
         self.addButton(text: "swift string", action: #selector(actionSwiftString))
         self.addButton(text: "算法题", action: #selector(actionAlgorithms))
+        self.addButton(text: "DownloadProgressView", action: #selector(actionDownloadProgressView))
+        self.addButton(text: "AES128加密", action: #selector(actionAES128Encrypt))
+        self.addButton(text: "AES128解密", action: #selector(actionAES128Decrypt))
+        self.addButton(text: "AES128解密-CryptoSwift", action: #selector(actionAES128DecryptCryptoSwift))
         
         
         self.scroll.contentSize = CGSize.init(width: 0, height: self.curY + 50)
@@ -181,9 +187,113 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
     
     //MARK: -
     
+    @objc func actionAES128Encrypt() {
+        let content: String = "I love XiangXiang"
+        let key: String = "qwertyuiopasdfgh"
+        guard let keyData = key.data(using: .utf8) else {
+            return
+        }
+
+        guard let contentData = content.data(using: .utf8) else {
+            return
+        }
+
+        let keyLength = kCCKeySizeAES128
+        let bufferSize = contentData.count + kCCBlockSizeAES128
+        var encryptedData = Data(count: bufferSize)
+
+        var numBytesEncrypted: size_t = 0
+
+        let cryptStatus = keyData.withUnsafeBytes { keyBytes in
+            contentData.withUnsafeBytes { contentBytes in
+                CCCrypt(
+                    CCOperation(kCCEncrypt),
+                    CCAlgorithm(kCCAlgorithmAES),
+                    CCOptions(kCCOptionECBMode|kCCOptionPKCS7Padding),
+                    keyBytes.bindMemory(to: UInt8.self).baseAddress, keyLength,
+                    nil,
+                    contentBytes.baseAddress, contentData.count,
+                    encryptedData.withUnsafeMutableBytes { $0.baseAddress }, bufferSize,
+                    &numBytesEncrypted
+                )
+            }
+        }
+
+        guard cryptStatus == kCCSuccess else {
+            return
+        }
+
+        encryptedData.count = numBytesEncrypted
+        let result = encryptedData.base64EncodedString()
+        print(result) // "0EL77J49O4UGWrzucafKtaQnoXqrI4xOvmGYhf7Y6mU="
+    }
+    
+    @objc func actionAES128Decrypt() {
+        let content = "0EL77J49O4UGWrzucafKtaQnoXqrI4xOvmGYhf7Y6mU="
+        let key = "qwertyuiopasdfgh"
+        guard let keyData = key.data(using: .utf8) else {
+            return
+        }
+        guard let contentData = Data(base64Encoded: content) else {
+            return
+        }
+
+        let keyLength = kCCKeySizeAES128
+        let bufferSize = contentData.count + kCCBlockSizeAES128
+        var decryptedData = Data(count: bufferSize)
+
+        var numBytesDecrypted: size_t = 0
+
+        let cryptStatus = keyData.withUnsafeBytes { keyBytes in
+            contentData.withUnsafeBytes { contentBytes in
+                CCCrypt(
+                    CCOperation(kCCDecrypt),
+                    CCAlgorithm(kCCAlgorithmAES),
+                    CCOptions(kCCOptionECBMode|kCCOptionPKCS7Padding),
+                    keyBytes.bindMemory(to: UInt8.self).baseAddress, keyLength,
+                    nil,
+                    contentBytes.bindMemory(to: UInt8.self).baseAddress, contentData.count,
+                    decryptedData.withUnsafeMutableBytes { $0.baseAddress }, bufferSize,
+                    &numBytesDecrypted
+                )
+            }
+        }
+
+        guard cryptStatus == kCCSuccess else {
+            return
+        }
+
+        decryptedData.count = numBytesDecrypted
+        guard let result = String(data: decryptedData, encoding: .utf8) else {
+            return
+        }
+        print(result) // "I love XiangXiang"
+    }
+    
+    @objc func actionAES128DecryptCryptoSwift() {
+        let content = "0EL77J49O4UGWrzucafKtaQnoXqrI4xOvmGYhf7Y6mU="
+        let key = "qwertyuiopasdfgh"
+        do {
+            let keyData = key.data(using: .utf8)!
+            let cipherData = Data(base64Encoded: content)!
+
+            let aes = try AES(key: keyData.bytes, blockMode: ECB(), padding: .pkcs7)
+            let decrypted = try aes.decrypt(cipherData.bytes)
+            
+            let decryptedData = Data(decrypted)
+            guard let result = String(data: decryptedData, encoding: .utf8) else {
+                return
+            }
+            print(result) // I love XiangXiang
+        } catch {
+            print("\(error)")
+        }
+    }
+    
     @objc func actionAlgorithms() {
-        let ret = Algorithms.firstMissingPositive([3,4,-1,1])
-        print("\(ret)")
+//        let ret = Algorithms.firstMissingPositive([3,4,-1,1])
+//        print("\(ret)")
+        Algorithms.testMergeLists()
     }
     
     
@@ -193,6 +303,32 @@ class MainController: QMUICommonViewController, JXCategoryViewDelegate, JXCatego
         print("expensiveObj is creating ...")
         return view
     }()
+    
+    
+    @objc func actionDownloadProgressView() {
+        let view = DownloadProgressView()
+        view.progress = 0
+        view.downloadState = .unknow
+        self.view.addSubview(view)
+        view.origin = CGPoint(x: 100, y: 100)
+        
+        xTask.asyncMain(after: 2) {
+            view.progress = 0.1
+            view.downloadState = .downloading
+            xTask.asyncMain(after: 2) {
+                view.downloadState = .paused
+                view.progress = 0.2
+                xTask.asyncMain(after: 2) {
+                    view.progress = 0.3
+                    view.downloadState = .downloading
+                    xTask.asyncMain(after: 2) {
+                        view.downloadState = .succeed
+                    }
+                }
+            }
+        }
+        
+    }
     
     @objc func actionSwiftString() {
         let str = "From the beginning of the world"
